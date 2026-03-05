@@ -1,0 +1,8 @@
+/.bundle/
+/vendor/bundle
+Gemfile.lock
+.env
+*.gem
+/spec/reports/
+/tmp/
+/.ruby-lsp/
