@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "dotenv"
-
 module OutlookMcp
   class Config
     SCOPES = "offline_access User.Read Mail.Read Mail.ReadWrite Mail.Send"

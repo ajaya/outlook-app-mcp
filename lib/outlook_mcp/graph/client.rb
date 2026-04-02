@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "faraday"
-require "json"
-
 module OutlookMcp
   module Graph
     class Client

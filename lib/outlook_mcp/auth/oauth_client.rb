@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "faraday"
-require "json"
-require "uri"
-
 module OutlookMcp
   module Auth
     class OAuthClient

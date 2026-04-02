@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "thor"
-require "json"
-
 module OutlookMcp
   class CLI < Thor
     desc "auth", "Authenticate with Microsoft Outlook via OAuth2"
@@ -33,9 +30,11 @@ module OutlookMcp
       exit 1
     end
 
-    desc "server", "Start the MCP stdio server"
+    desc "server", "Start the MCP server (stdio by default, --http for HTTP)"
+    method_option :http, type: :boolean, default: false, desc: "Listen on HTTP instead of stdio"
+    method_option :port, type: :numeric, default: Server::DEFAULT_HTTP_PORT, desc: "HTTP port (default: #{Server::DEFAULT_HTTP_PORT})"
     def server
-      OutlookMcp::Server.start
+      OutlookMcp::Server.start(http: options[:http], port: options[:port])
     end
 
     desc "version", "Print the version"

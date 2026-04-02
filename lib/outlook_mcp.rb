@@ -1,35 +1,30 @@
 # frozen_string_literal: true
 
+require "dotenv"
+require "faraday"
+require "json"
 require "mcp"
-
-require_relative "outlook_mcp/version"
-require_relative "outlook_mcp/config"
-require_relative "outlook_mcp/auth/token_store"
-require_relative "outlook_mcp/auth/oauth_client"
-require_relative "outlook_mcp/auth/callback_server"
-require_relative "outlook_mcp/graph/sanitize_ids"
-require_relative "outlook_mcp/graph/email"
-require_relative "outlook_mcp/graph/folder"
-require_relative "outlook_mcp/graph/client"
-require_relative "outlook_mcp/tools/list_emails"
-require_relative "outlook_mcp/tools/search_emails"
-require_relative "outlook_mcp/tools/read_email"
-require_relative "outlook_mcp/tools/send_email"
-require_relative "outlook_mcp/tools/reply_to_email"
-require_relative "outlook_mcp/tools/reply_all_to_email"
-require_relative "outlook_mcp/tools/forward_email"
-require_relative "outlook_mcp/tools/create_draft"
-require_relative "outlook_mcp/tools/send_draft"
-require_relative "outlook_mcp/tools/mark_as_read"
-require_relative "outlook_mcp/tools/delete_email"
-require_relative "outlook_mcp/tools/move_emails"
-require_relative "outlook_mcp/tools/copy_email"
-require_relative "outlook_mcp/tools/list_folders"
-require_relative "outlook_mcp/tools/create_folder"
-require_relative "outlook_mcp/tools/list_attachments"
-require_relative "outlook_mcp/tools/get_attachment"
-require_relative "outlook_mcp/server"
-require_relative "outlook_mcp/cli"
+require "rack"
+require "thor"
+require "uri"
+require "webrick"
+require "zeitwerk"
 
 module OutlookMcp
+  class << self
+    def loader
+      @loader ||= begin
+        loader = Zeitwerk::Loader.for_gem(warn_on_extra_files: false)
+        loader.inflector.inflect("oauth_client" => "OAuthClient", "cli" => "CLI")
+        loader.setup
+        loader
+      end
+    end
+
+    def eager_load!
+      loader.eager_load
+    end
+  end
 end
+
+OutlookMcp.loader

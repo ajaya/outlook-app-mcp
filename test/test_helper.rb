@@ -11,3 +11,5 @@ ENV["OUTLOOK_CLIENT_SECRET"] ||= "test-client-secret"
 ENV["OUTLOOK_TENANT_ID"] ||= "test-tenant"
 
 require_relative "../lib/outlook_mcp"
+
+OutlookMcp.eager_load!

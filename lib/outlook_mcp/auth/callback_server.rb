@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require "socket"
-require "webrick"
-
 module OutlookMcp
   module Auth
     class CallbackServer
